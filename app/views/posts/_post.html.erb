@@ -18,15 +18,16 @@
 
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Edit Post</a></li>
-                      <li><a class="dropdown-item" href="#">Delete Post</a></li>
+                      <li><a><%= button_to "Destroy this post", @post, method: :delete, class: "dropdown-item" %></a></li>
                   </ul>
                 </div>
             </div>
         </div>
+        <%= render "posts/post_actions", post: post %>
       </div>
       
       <div class="card-body">
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div id="post<%= post.id %>_images" class="carousel slide" data-bs-ride="true">
           <div class="carousel-inner">
             <% post.images.each_with_index do |img, i| %>
               <div class="carousel-item <%= i==0 ? 'active' : '' %>" style="height: 25rem">
@@ -35,15 +36,20 @@
             <% end %>
           </div>
             <% if post.images.count > 1 %>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <button class="carousel-control-prev" type="button" data-bs-target="#post<%= post.id %>_images" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon bg-dark rounded-circle" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
               </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <button class="carousel-control-next" type="button" data-bs-target="#post<%= post.id %>_images" data-bs-slide="next">
                 <span class="carousel-control-next-icon bg-dark rounded-circle" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
               </button>
-            <% end %>
+                <div class="carousel-indicators" style="position:static">
+                    <% post.images.each_with_index do |img, i| %>
+                    <button type="button" data-bs-target="#post<%= post.id %>_images" data-bs-slide-to="<%= i %>" class=" bg-dark <%= i==0 ? 'active' : '' %>"> </button>
+                    <% end %>
+                </div>
+           <% end %>
         </div>
         <p class="card-text"><span class="mx-1 fw-bold"><%= post.venue.email %></span><%= post.caption %></p>
           <small class="text-muted mx-1"><%= time_ago_in_words(post.created_at) %></small>
@@ -54,3 +60,8 @@
       </div>
     </div>
 </div>
+<script>
+    document.getElementById("post<%= post.id %>_images").addEventListener("dblclick", function(){
+                        document.getElementById("post<%= post.id %>actions-likeBtn").click();    
+                            })
+</script>

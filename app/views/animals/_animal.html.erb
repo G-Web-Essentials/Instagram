@@ -1,0 +1,48 @@
+<div id="<%= dom_id animal %>">
+  <p>
+    <strong>Pet Name:</strong>
+    <%= animal.petname %>
+  </p>
+
+  <p>
+    <strong>Passport Name:</strong>
+    <%= animal.ppname %>
+  </p>
+
+  <p>
+    <strong>Species:</strong>
+    <%= animal.species %>
+  </p>
+
+  <p>
+    <strong>Food:</strong>
+    <%= animal.food %>
+  </p>
+
+  <p>
+    <strong>Notes:</strong>
+    <%= animal.notes %>
+  </p>
+
+  <p>
+    <strong>Vaccineapplied:</strong>
+    <%= animal.vaccineapplied %>
+  </p>
+
+  <p>
+    <strong>Nextvaccine:</strong>
+    <%= animal.nextvaccine %>
+  </p>
+<%if animal.user_id? %>
+  <p>
+    <strong>User:</strong>
+    <%= animal.user.email %>
+  </p>
+<% end %>
+<%if animal.venue_id? %>
+  <p>
+    <strong>Venue:</strong>
+    <%= animal.venue.email %>
+  </p>
+<% end %>
+</div>

@@ -53,3 +53,11 @@ body {
 .btn-primary {
     background-color: cornflowerblue;
 }
+
+.filepond--item {
+    width: calc(50% - 0.5em);
+}
+
+.filepond--root {
+    max-height: 20em;
+}

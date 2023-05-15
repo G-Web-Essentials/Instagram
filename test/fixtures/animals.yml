@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  petname: MyString
+  ppname: MyString
+  species: 1
+  food: MyString
+  notes: MyString
+  vaccineapplied: 2023-05-15
+  nextvaccine: 2023-05-15
+  user: one
+  venue: one
+
+two:
+  petname: MyString
+  ppname: MyString
+  species: 1
+  food: MyString
+  notes: MyString
+  vaccineapplied: 2023-05-15
+  nextvaccine: 2023-05-15
+  user: two
+  venue: two

@@ -1,0 +1,4 @@
+<% post.comments.each do |comment| %>
+
+    <p><span class="fw-bold"><%= comment.commenter.email %> </span> <%= comment.body %> </p>
+<% end %>

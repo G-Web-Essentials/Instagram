@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_15_151337) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_15_194005) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -53,6 +53,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_151337) do
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_animals_on_user_id"
     t.index ["venue_id"], name: "index_animals_on_venue_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "venue_id"
+    t.integer "post_id"
+    t.integer "animal_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["animal_id"], name: "index_comments_on_animal_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+    t.index ["venue_id"], name: "index_comments_on_venue_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -108,6 +122,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_15_151337) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "animals", "users"
   add_foreign_key "animals", "venues"
+  add_foreign_key "comments", "animals"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "comments", "venues"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "venues"

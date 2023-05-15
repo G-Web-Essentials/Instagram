@@ -6,4 +6,6 @@ class Venue < ApplicationRecord
   has_many :posts
   has_many :animals
   has_one_attached :profile_picture
+    
+  has_many :comments, as: :commenter, :dependent => :delete_all
 end

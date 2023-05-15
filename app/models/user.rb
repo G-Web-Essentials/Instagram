@@ -5,4 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :animals
   has_many :likes
+    
+  has_many :comments, as: :commenter, :dependent => :delete_all
 end

@@ -52,7 +52,9 @@
            <% end %>
         </div>
         <p class="card-text"><span class="mx-1 fw-bold"><%= post.venue.email %></span><%= post.caption %></p>
-          <small class="text-muted mx-1"><%= time_ago_in_words(post.created_at) %></small>
+          
+        <%= render "posts/post_comments", post: post %>
+        <small class="text-muted mx-1"><%= time_ago_in_words(post.created_at) %></small>
       </div>
       <div class="card-footer d-flex justify-content-between bg-white">
         <input type="text" class="w-75 fw-bold" placeholder="Add a comment..." style="border:none">

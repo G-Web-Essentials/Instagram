@@ -6,5 +6,5 @@ class Post < ApplicationRecord
     
   validates :images, presence: false, blob: { content_type: :image, size_range: 1..(5.megabytes) }
   
-  has_many :comments, :dependent => :delete_all
+  has_many :comments, as: :commentable
 end

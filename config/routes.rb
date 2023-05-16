@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :animals
-  resources :posts
+  resources :posts do
+      resources :comments
+  end
+  resources :comments
+
   devise_for :venues
   devise_for :users
   
@@ -10,6 +14,5 @@ Rails.application.routes.draw do
   root "home#index"
   
   post "toggle_like", to: "likes#toggle_like", as: :toggle_like
-    
-  resources :comments, only: [:create, :destroy]
+  
 end

@@ -6,5 +6,5 @@ class User < ApplicationRecord
   has_many :animals
   has_many :likes
     
-  has_many :comments, as: :commenter, :dependent => :delete_all
+  has_many :comments, as: :commenter
 end

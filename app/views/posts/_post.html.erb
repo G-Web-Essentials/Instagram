@@ -23,7 +23,6 @@
                 </div>
             </div>
         </div>
-        <%= render "posts/post_actions", post: post %>
       </div>
       
       <div class="card-body">
@@ -51,15 +50,30 @@
                 </div>
            <% end %>
         </div>
-        <p class="card-text"><span class="mx-1 fw-bold"><%= post.venue.email %></span><%= post.caption %></p>
+          <div class="mx-0 my-2" style="border-size: 4rem; border: grey; border-style:solid;"><%= render "posts/post_actions", post: post %></div>
+        <p class="my-1">Caption:</p>
+        <p class="card-text fw-bold"><span><%= post.caption %><small class="text-muted mx-3 my-0">Posted <%= time_ago_in_words(post.created_at) %> ago...</small></span></p>
+        
           
         <%= render "posts/post_comments", post: post %>
-        <small class="text-muted mx-1"><%= time_ago_in_words(post.created_at) %></small>
+        
       </div>
-      <div class="card-footer d-flex justify-content-between bg-white">
-        <input type="text" class="w-75 fw-bold" placeholder="Add a comment..." style="border:none">
-        <a class="text-primary" style="text-decoration: none">Post</a>
-      </div>
+      <%= form_with url: comments_path, method: :post,  data: {controller: "comments", action: "turbo:submit-end->comments#clear" } do |f| %>
+        <div class="card-footer d-flex justify-content-between bg-white">
+            
+            <% if current_venue %>
+                <%= f.hidden_field :commenter_id, value: current_venue.id %>
+                <%= f.hidden_field :commenter_type, value: "Venue" %>
+            <% elsif current_user %>
+                <%= f.hidden_field :commenter_id, value: current_user.id %>
+                <%= f.hidden_field :commenter_type, value: "User" %>
+            <% end %>
+            <%= f.hidden_field :commentable_id, value: post.id %>
+            <%= f.hidden_field :commentable_type, value: "Post" %>
+            <%= f.text_area :comment_body, class: "w-75", placeholder: "Add a comment...", style:"border:none" %>
+            <%= f.submit "Post", class: "text-primary fw-bold", style: "background:none; border:none" %>
+        </div>
+     <% end %>
     </div>
 </div>
 <script>

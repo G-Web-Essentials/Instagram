@@ -1,27 +1,45 @@
 class CommentsController < ApplicationController
-    before_action :set_comment_parent
-    def create 
-        if User
-        @comment = @parent.comments.create(user: current_user, body: params[:comment_body])
-        elsif Venue
-            @comment = @parent.comments.create(venue: current_venue, body: params[:comment_body])
+    before_action :set_commentable, only: [:create]
+    def create  
+            @comment = @commentable.comments.create(commentable: @commentable, commenter_id: params[:commenter_id],commenter_type: params[:commenter_type], body: params[:comment_body])
+        if @commentable == Post.find(params[:commentable_id])
+            respond_to do |format|
+                format.turbo_stream do
+                    render turbo_stream: turbo_stream.replace(
+                        "post#{@commentable.id}comments",
+                        partial: "posts/post_comments",
+                        locals: {post: @commentable}
+                        )
+                end
+            end
+        elsif @commentable == Animal.find(params[:commentable_id])
+            respond_to do |format|
+                format.turbo_stream do
+                    render turbo_stream: turbo_stream.replace(
+                        "post#{@commentable.id}comments",
+                        partial: "animals/animal_comments",
+                        locals: {animal: @commentable}
+                        )
+                end
+            end
         end
     end
     
     def destroy
         @comment = Comment.find(params[:id])
-        if(@comment.user == current_user || @comment.venue == current_venue)
+        if(@comment.commenter == current_user || @comment.commenter == current_venue)
             @comment.destroy
         end
         
     end
     
-            
-    def set_comment_parent
-        if params[:post_id].pesent?
-            @parent = Post.find(params[:post_id])
-        elsif params[:animal_id].pesent?
-            @parent = Animal.find(params[:animal_id])
-        end
-    end
+    private
+    
+    def set_commentable
+        if Post
+          @commentable = Post.find(params[:commentable_id])
+        elsif Animal
+          @commentable = Animal.find(params[:commentable_id])
+        end  
+  end
 end

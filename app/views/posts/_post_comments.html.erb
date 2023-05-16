@@ -1,4 +1,9 @@
-<% post.comments.each do |comment| %>
-
-    <p><span class="fw-bold"><%= comment.commenter.email %> </span> <%= comment.body %> </p>
+<%= turbo_frame_tag "post#{post.id}comments" do %>
+    <% if post.comments.count > 0 %>
+        <p class="mx=0 my-0">Comments:</p>
+        <% post.comments.last(4).each do |comment| %>
+            <p class="card-text m-0"><span class="fw-bold"><%= comment.commenter.email %> </span> <%= comment.body %> </p>
+        <% end %>
+        <small class="text-muted">View all <%= pluralize(post.comments.count, "comments") %> </small></br>
+    <% end %>
 <% end %>

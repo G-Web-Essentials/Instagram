@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
             respond_to do |format|
                 format.turbo_stream do
                     render turbo_stream: turbo_stream.replace(
-                        "post#{@commentable.id}comments",
+                        "animal#{@commentable.id}comments",
                         partial: "animals/animal_comments",
                         locals: {animal: @commentable}
                         )
@@ -29,9 +29,17 @@ class CommentsController < ApplicationController
         @comment = Comment.find(params[:id])
         if(@comment.commenter == current_user || @comment.commenter == current_venue)
             @comment.destroy
+    
+            respond_to do |format|
+                format.turbo_stream do
+                render turbo_stream: turbo_stream.remove(
+                    "post#{@comment.commentable_id}ModalComment#{@comment.id }"
+                    )
+                end
+            end
         end
-        
     end
+    
     
     private
     

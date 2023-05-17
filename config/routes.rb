@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
   resources :animals
+  devise_for :users
+  resources :users, only: [:show]
+  devise_for :venues
+  resources :venues, only: [:show]
   resources :posts do
       resources :comments
   end
   resources :comments
 
-  devise_for :venues
-  devise_for :users
+  
+  
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

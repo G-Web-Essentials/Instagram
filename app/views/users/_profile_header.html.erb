@@ -1,0 +1,22 @@
+<div class="container border-bottom d-flex justify-content-center align-icons-center my-5 gap-5 py-5" style="min-height: 20rem">
+    <%= image_tag user.profile_picture.attached? ? user.profile_picture : 'thumbnail.png', class: "img-thumbnail rounded-circle w-25", style: "max-width: 8rem; max-height: 8rem;" %>
+    
+    <div class="d-flex flex-column gap-4 w-50 ">
+        <div class="d-flex gap-3 align-items-center">
+            <p class="m-0 fw-bold"><%= user.username %></p>
+            <button class="btn border border-1">Message</button>
+            <button class="btn btn-primary">Follow</button>
+        </div>
+        <div class="d-flex gap-5 ">
+            <small class="fw-bold">Works at: <small class="text-muted">Hostery</small></small>
+            <small class="fw-bold"><%= pluralize(10, "medal") %> </small>
+            <small class="fw-bold"><%= pluralize(10, "event") %> </small>
+        </div>
+        <div class="d-flex flex-column ">
+            <small class="fw-bold"><%= user.full_name %></small>
+            <smalll><%= user.bio %></smalll>
+        </div>
+    </div>
+    
+
+</div>

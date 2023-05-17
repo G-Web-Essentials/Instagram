@@ -1,0 +1,6 @@
+<%= render 'venues/profile_header', venue: @venue %>
+<% if !@venue.private || @venue == current_venue %>
+   <%= render 'venues/profile_posts', venue: @venue %>
+<% else %>
+   <%= render 'venues/profile_private' %> 
+<% end %>

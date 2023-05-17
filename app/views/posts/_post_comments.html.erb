@@ -4,6 +4,27 @@
         <% post.comments.last(4).each do |comment| %>
             <p class="card-text m-0"><span class="fw-bold"><%= comment.commenter.email %> </span> <%= comment.body %> </p>
         <% end %>
-        <small class="text-muted">View all <%= pluralize(post.comments.count, "comments") %> </small></br>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#post<%= post.id %>_commentsModal" style="text-decoration:none" >
+            <small class="text-muted">View all <%= pluralize(post.comments.count, "comments") %> </small>
+        </a></br>
     <% end %>
+
+    <div class="modal fade" id="post<%= post.id %>_commentsModal" tabindex="-1" aria-labelledby="post<%= post.id %>_commentsModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title fs-5" id="post<%= post.id %>_commentsModalLabel">Post Comments</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="d-flex flex-column gap-3">
+                      <% post.comments.each do |comment| %>
+                        <%= render "posts/modal_comment", comment: comment %>
+                      <% end %>
+                  </div>
+              </div>
+            </div>
+          </div>
+    </div>
 <% end %>
+

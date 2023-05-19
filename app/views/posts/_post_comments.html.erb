@@ -2,7 +2,7 @@
     <% if post.comments.count > 0 %>
         <p class="mx=0 my-0">Comments:</p>
         <% post.comments.last(4).each do |comment| %>
-            <p class="card-text m-0"><%= link_to comment.commenter, class: "a-decoration-none text-dark" do %><span class="fw-bold"><%= comment.commenter.username %>: </span><%end%> <%= comment.body %> </p>
+            <p class="card-text m-0"><%= link_to comment.commenter, class: "a-decoration-none text-dark", data: {turbo: 'false'} do %><span class="fw-bold"><%= comment.commenter.username %>: </span><%end%> <%= comment.body %> </p>
         <% end %>
         <a href="#" data-bs-toggle="modal" data-bs-target="#post<%= post.id %>_commentsModal" style="text-decoration:none" >
             <small class="text-muted">View all <%= pluralize(post.comments.count, "comments") %> </small>

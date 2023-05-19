@@ -3,8 +3,17 @@
 <%= render @animal %>
 
 <div>
-  <%= link_to "Edit this animal", edit_animal_path(@animal) %> |
+    <% if current_venue && !@animal.venue_id? %>
+        <%= button_to "Add horse to venue", add_animal_venue_path(@animal, 'animal[active]': false), method: :put, class:"btn btn-primary" %>
+    <% elsif current_user && !@animal.user_id? %>
+        <%= button_to "Add horse to list", add_animal_path(@animal, 'animal[active]': false), method: :put, class:"btn btn-primary" %>
+    <%end%>
+  <% if current_venue && current_venue.id == @animal.venue_id || current_user && current_user.id == @animal.user_id %>
+      <%= link_to "Edit this animal", edit_animal_path(@animal) %> 
+      <%= button_to "Destroy this animal", @animal, method: :delete %>
+  <%end%>
   <%= link_to "Back to animals", animals_path %>
 
-  <%= button_to "Destroy this animal", @animal, method: :delete %>
+    
 </div>
+

@@ -8,12 +8,12 @@
                 <% else %>
                      <%= image_tag 'thumbnail.png', class: "img-thumbnail rounded-circle ", style: "width: 2.5rem; max-height: 2.5rem;" %>
                 <% end %>
-                    <small class="fw-bold" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width:10rem;"><%= link_to comment.commenter, class: "a-decoration-none text-dark" do %><%= comment.commenter.username %><%end%></small>
+                    <small class="fw-bold" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width:10rem;"><%= link_to comment.commenter, class: "a-decoration-none text-dark", data: {turbo: 'false'} do %><%= comment.commenter.username %><%end%></small>
                     <small> <%= comment.body %></small>
                     <small class="text-muted"> <%= time_ago_in_words(comment.created_at) %> ago</small>
             </div>
         </div>
-        <% if comment.commenter == current_user || comment.commenter == current_venue %>
+        <% if comment.commenter == current_user || comment.commenter == current_venue || comment.commentable.venue == current_venue %>
             <%= button_to comment_path(id: comment.id), method: :delete, style: "background:none; border:none" do %>
             <i class="fa fa-times"></i>
             <% end %>

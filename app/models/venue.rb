@@ -19,6 +19,10 @@ class Venue < ApplicationRecord
   has_many :followings, through: :accepted_sent_requests, source: :followed
     
   has_many :waiting_followings, through: :waiting_sent_requests, source: :followed
+
+  def add_animal(animal, venue)
+      animal.venue_id = venue.id
+  end
     
   def follow(user)
      Follow.create(follower: self, followed: user) 

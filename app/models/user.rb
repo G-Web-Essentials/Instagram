@@ -17,7 +17,9 @@ class User < ApplicationRecord
   
   has_many :followers, through: :accepted_recieved_requests, source: :follower
     
-
+    def add_animal(animal)
+      animal.user_id = self.id
+    end
 
   
 end

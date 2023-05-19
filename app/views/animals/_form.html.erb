@@ -39,14 +39,11 @@
   </div>
 
   <div>
-    <%= form.label :vaccineapplied, style: "display: block" %>
+    <%= form.label :last_vaccine_applied, style: "display: block" %>
     <%= form.date_field :vaccineapplied %>
   </div>
 
-  <div>
-    <%= form.label :nextvaccine, style: "display: block" %>
-    <%= form.date_field :nextvaccine %>
-  </div>
+  
  <% if user_signed_in? %>
   <div>
     <%= form.hidden_field :user_id, :value => current_user.id %>

@@ -5,6 +5,4 @@ class Follow < ApplicationRecord
     def accept
        self.update(accepted: true) 
     end
-    
-    
 end

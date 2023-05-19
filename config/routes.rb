@@ -10,9 +10,7 @@ Rails.application.routes.draw do
   resources :comments
 
     
-    
-  
-  
+ 
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -28,5 +26,9 @@ Rails.application.routes.draw do
     
     
   post "toggle_like", to: "likes#toggle_like", as: :toggle_like
+  
+  put "/animal/:id/add_animal", to: 'animals#add_animal', as: :add_animal
+    
+  put "/animal/:id/add_animal_venue", to: 'animals#add_animal_venue', as: :add_animal_venue
   
 end

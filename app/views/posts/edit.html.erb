@@ -1,10 +1,88 @@
-<h1>Editing post</h1>
+<div class="container justify-contenter-center my-4">
+    <h1>Edit Post</h1>
 
-<%= render "form", post: @post %>
+    <%= form_with(model: @post) do |form| %>
+            <div class="modal-content">
 
-<br>
+              <div class="modal-body d-flex" style="width:100%">
+                  <div class="border-end border-secondary mx-2 d-flex justify-content" style="width:60%" >
+                      <% if @post.images.present? %>
+                          <% @post.images.each do |image| %>
+                            <%= form.hidden_field :images, multiple: true, value: image.signed_id %>
+                          <% end %>
+                      <% else %>
+                        <%= form.file_field :images, multiple: true, id: "post-images" %>
+                      <% end %>
+                     
+                      
+                       <% if @post.images.present?  %>
+                       <% @post.images.each_with_index do |img, i| %>
+                      
+                          <div class="" style="height: 25rem">
+                            <%= image_tag img, class:"d-block w-100", style: "max-height: 20rem;  max-width: 20rem;object-fit: cover;" %>
+                          </div>
 
-<div>
-  <%= link_to "Show this post", @post %> |
-  <%= link_to "Back to posts", posts_path %>
+                        <% end %>
+                      <%end%>
+                      
+                      
+                  </div>
+                  <div style="width:40%">
+                     <% if @post.errors.any? %>
+                        <div style="color: red">
+                          <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+                          <ul>
+                            <% @post.errors.each do |error| %>
+                              <li><%= error.full_message %></li>
+                            <% end %>
+                          </ul>
+                        </div>
+                      <% end %>
+                      <div>
+                            <% if venue_signed_in? && current_venue.profile_picture.attached? %>
+                                <%= image_tag current_venue.profile_picture, class: "img-thumbnail rounded-circle", style: "width: 20%" %>
+                            <% else %>
+                                <%= image_tag 'thumbnail.png', class: "img-thumbnail rounded-circle", style: "width: 12%" %>
+                            <% end %>
+                          <% if venue_signed_in? %>
+                            <span class="mx-2 fw-bold"><%= current_venue.email %></span>
+                          <% end %>
+                      </div>
+                      <div class="my-3">
+                        <%= form.text_area :caption, rows:8, placeholder: "Write a caption...", class: "form-control border-0", style: "resize:none" %>
+                      </div>
+                      <div>
+                          <%= form.text_field :location, placeholder: "Add location", class: " form-control" %>
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center form-control my-2 border"  data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <a class="text-dark" style="text-decoration: none">
+                            Advanced Settings
+                        </a>
+                        <i class="fa-solid fa-caret-down"></i>
+                      </div>
+
+                      <div class="collapse" id="collapseExample">
+                          <div class="card card-body">
+                            <div class="form-check form-switch">
+                                <%= form.check_box :allow_comments, class:"form-check-input", role:"switch", checked: true %>
+                                <%= form.label :allow_comments, style: "display: block", class: "form-check-label" %>
+                              </div>
+
+                              <div class="form-check form-switch">
+                                <%= form.check_box :show_likes_count, class:"form-check-input", role:"switch", checked: true %>
+                                <%= form.label :show_likes_count, style: "display: block", class: "form-check-label" %>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div>
+
+                  </div>  
+              </div>
+              <div class="modal-footer">
+                <%= form.submit "Post", class: "btn btn-primary" %>
+              </div>
+            </div>
+    <% end %>
 </div>

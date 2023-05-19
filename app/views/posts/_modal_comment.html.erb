@@ -1,11 +1,16 @@
 <div id="post<%= comment.commentable_id %>ModalComment<%= comment.id %>"> 
     <div class="d-flex justify-content-between">
         <div class="d-flex">
-            <%= image_tag 'thumbnail.png', class: "img-thumbnail rounded-circle ", style: "width: 2.5rem; max-height: 2.5rem;" %>
             <div class="d-flex flex-column mx-2 justify-content-center">
-                <small class="fw-bold" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width:10rem;"><%= comment.commenter.email %></small>
-                <small> <%= comment.body %></small>
-                <small class="text-muted"> <%= time_ago_in_words(comment.created_at) %> ago</small>
+                
+                <% if comment.commenter.profile_picture.attached?  %>
+                     <%= image_tag comment.commenter.profile_picture, class: "img-thumbnail rounded-circle", style: "width: 2rem" %>
+                <% else %>
+                     <%= image_tag 'thumbnail.png', class: "img-thumbnail rounded-circle ", style: "width: 2.5rem; max-height: 2.5rem;" %>
+                <% end %>
+                    <small class="fw-bold" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width:10rem;"><%= link_to comment.commenter, class: "a-decoration-none text-dark" do %><%= comment.commenter.username %><%end%></small>
+                    <small> <%= comment.body %></small>
+                    <small class="text-muted"> <%= time_ago_in_words(comment.created_at) %> ago</small>
             </div>
         </div>
         <% if comment.commenter == current_user || comment.commenter == current_venue %>

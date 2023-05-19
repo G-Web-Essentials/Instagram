@@ -30,7 +30,7 @@
                   <% end %>
                   <div>
                         <% if venue_signed_in? && current_venue.profile_picture.attached? %>
-                            <%= image_tag post.venue.profile_picture, class: "img-thumbnail rounded-circle", style: "width: 10%" %>
+                            <%= image_tag current_venue.profile_picture, class: "img-thumbnail rounded-circle", style: "width: 20%" %>
                         <% else %>
                             <%= image_tag 'thumbnail.png', class: "img-thumbnail rounded-circle", style: "width: 12%" %>
                         <% end %>

@@ -6,6 +6,7 @@ import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 
 // Register the plugin
 document.addEventListener("turbo:load", loadFilePond);
+
 function loadFilePond() {
     FilePond.registerPlugin(
         FilePondPluginImagePreview,

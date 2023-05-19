@@ -3,7 +3,8 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    #@posts = Post.all
+    redirect_to root_path
   end
 
   # GET /posts/1 or /posts/1.json
@@ -36,7 +37,9 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
+       
     respond_to do |format|
+        
       if @post.update(post_params)
         format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
         format.json { render :show, status: :ok, location: @post }
@@ -49,12 +52,13 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
-    @post.destroy
+      
+        @post.destroy
 
-    respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
-      format.json { head :no_content }
-    end
+        respond_to do |format|
+          format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
+          format.json { head :no_content }
+        end
   end
 
   private

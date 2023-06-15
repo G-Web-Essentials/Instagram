@@ -1,0 +1,12 @@
+<%= render "layouts/flash_message" %>
+<div class="d-flex my-5 justify-content-center gap-5">
+    <div class="d-flex flex-column gap-1">
+        <h2>Recent News</h2>
+        <% if current_venue %>
+            <% @posts.each do |p| %>
+                <%= render 'posts/post', post: p %>
+            <% end %>
+        <% end %>
+    </div>
+    <%= render 'suggestions/suggestion_list' %>
+</div>

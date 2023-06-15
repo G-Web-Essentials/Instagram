@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
-    before_action :set_user
+    before_action :set_user, only: [:show]
     
+    def index
+        if params[:search_query].present?
+            @users = User.where("username LIKE ?", "%#{params[:search_query]}%")
+        else
+            @users = []
+        end
+    end
     def show
         
     end

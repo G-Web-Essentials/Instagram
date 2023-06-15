@@ -1,12 +1,68 @@
 <%= render "layouts/flash_message" %>
-<div class="d-flex my-5 justify-content-center gap-5">
-    <div class="d-flex flex-column gap-1">
-        <h2>Recent News</h2>
-        <% if current_venue %>
-            <% current_venue.posts.each do |p| %>
-                <%= render 'posts/post', post: p %>
-            <% end %>
-        <% end %>
+<div class="container d-flex flex-column">
+    
+    <div class="row justify-content-center align-items-center">
+        <ul class="nav nav-tabs w-content  border-top-2 border-dark justify-content-center" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Venues</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Events</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Animals</button>
+          </li>
+          
+        </ul>
+        <div class="tab-content justify-content-center align-items-center" id="myTabContent">
+          <div class="tab-pane fade show active justify-content-center align-items-center" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+            
+              <div class="d-flex justify-content-center">
+                    <div class=" me-5"  id="SupportedContent">
+                            <%= form_with(url: venues_path, method: :get, data: {turbo_frame: "search_results", controller: "search-results"}, class:"d-flex" ) do |f| %>
+
+                                <div class="dropdown">
+                                  <%= f.text_field :search_query, class: "form-control me-2 border-0", type:"search", placeholder:"Search", "aria-label"=>"Search", style:"background: #efefef; width: 35rem;", "data-bs-toggle"=>"dropdown", "aria-expanded"=>"false", data: {action: "input->search-results#search"}  %>
+
+                                  <ul class="dropdown-menu p-4 mt-2">
+                                            <%= render 'layouts/shared/search_results', venues: [] %>
+                                  </ul>
+                              </div>
+
+
+                            <% end %>
+                    </div>         
+            
+          </div>
+          <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            
+            
+            
+          
+          </div>
+          <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+            
+            <div class="dropdown">
+                  <input class="form-control me-2 border-0" type="search" placeholder="Search" aria-label="Search" style="background: #efefef" data-bs-toggle="dropdown" aria-expanded="false">
+                  <ul class="dropdown-menu p-4 w-10">
+                        
+                            <% Animal.all.each do |v| %>
+                                <li>
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex">
+                                            <div class="d-flex flex-column mx-2 justify-content-center">
+                                                <small class="fw-bold" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width:12rem;"><%= link_to v, class: "a-decoration-none" do %><%= v.petname %><%end%></small>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </li>
+                            
+                        <% end %>
+                  </ul>
+              </div>
+            
+          </div>
+          
+        </div>
     </div>
-    <%= render 'suggestions/suggestion_list' %>
 </div>

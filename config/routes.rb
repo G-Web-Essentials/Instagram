@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
   resources :animals
   devise_for :users
-  resources :users, only: [:show]
+  resources :users, only: [:show, :index]
   devise_for :venues
-  resources :venues, only: [:show]
+  resources :venues, only: [:show, :index]
   resources :posts do
       resources :comments
   end
   resources :comments
 
-    
+  resources :home
  
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -30,5 +30,7 @@ Rails.application.routes.draw do
   put "/animal/:id/add_animal", to: 'animals#add_animal', as: :add_animal
     
   put "/animal/:id/add_animal_venue", to: 'animals#add_animal_venue', as: :add_animal_venue
+
+  put "/animal/:id/release_animal_venue", to: 'animals#release_animal_venue', as: :release_animal_venue
   
 end

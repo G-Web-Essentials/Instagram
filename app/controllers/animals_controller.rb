@@ -78,6 +78,15 @@ class AnimalsController < ApplicationController
           redirect_back(fallback_location: root_path)
       end
   end
+    
+  def release_animal_venue
+      @animal = Animal.find(params[:id])
+      if @animal.venue_id == current_venue.id
+          @animal.release_animal_venue(@animal)
+          @animal.update(animal_params)
+          redirect_back(fallback_location: root_path)
+      end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

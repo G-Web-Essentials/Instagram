@@ -11,6 +11,7 @@
   <% if current_venue && current_venue.id == @animal.venue_id || current_user && current_user.id == @animal.user_id %>
       <%= link_to "Edit this animal", edit_animal_path(@animal) %> 
       <%= button_to "Destroy this animal", @animal, method: :delete %>
+    <%= button_to "Release horse from venue", release_animal_venue_path(@animal, 'animal[active]': false), method: :put, class:"btn btn-primary" %>
   <%end%>
   <%= link_to "Back to animals", animals_path %>
 

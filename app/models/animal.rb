@@ -10,4 +10,7 @@ class Animal < ApplicationRecord
    def add_animal_venue(animal, venue)
        animal.venue_id = venue.id
    end
+   def release_animal_venue(animal)
+       animal.venue_id = nil
+   end
 end
